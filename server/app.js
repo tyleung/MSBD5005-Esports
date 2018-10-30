@@ -18,7 +18,7 @@ const express = require('express');
 const app = express();
 
 // CORS middleware
-var allowCrossDomain = function(req, res, next) {
+const allowCrossDomain = function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
