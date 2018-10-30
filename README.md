@@ -13,3 +13,7 @@ Running the client:
 Running the server:  
 `cd server/`  
 `npm run start` or `yarn start`
+
+Deployment:  
+`npm run build` or `yarn build`
+`git push origin master`

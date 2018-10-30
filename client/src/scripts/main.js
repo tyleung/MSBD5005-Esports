@@ -55,14 +55,13 @@ var countries_EU_shortcode = [];
 var data_EU = {};
 
 var countries_EU_short = Object.keys(Countries).map(function(key) {
-    // console.log(obj)
     if(countries_EU.indexOf(Countries[key]) > 0) {
         countries_EU_shortcode.push(key)
     }
 });
 
 countries_EU_shortcode.forEach(code => {
-    data_EU[code] = {fillKey: 'lb50'}
+    data_EU[code] = {fillKey: 'alpha25'}
 });
 
 var other_countries = [
@@ -74,9 +73,24 @@ var other_countries = [
     'KOR'
 ];
 
-other_countries.forEach(code => {
-    data_EU[code] = {fillKey: 'gt50'}
-});
+//other_countries.forEach(code => {
+//    data_EU[code] = {fillKey: 'alpha25'}
+//});
+
+data_EU['CHN'] = {fillKey: 'alpha100'}
+data_EU['USA'] = {fillKey: 'alpha100'}
+data_EU['KOR'] = {fillKey: 'alpha100'}
+data_EU['SWE'] = {fillKey: 'alpha65'}
+data_EU['DNK'] = {fillKey: 'alpha65'}
+data_EU['RUS'] = {fillKey: 'alpha65'}
+data_EU['CAN'] = {fillKey: 'alpha65'}
+data_EU['FRA'] = {fillKey: 'alpha65'}
+data_EU['FIN'] = {fillKey: 'alpha65'}
+data_EU['UKR'] = {fillKey: 'alpha65'}
+data_EU['GBR'] = {fillKey: 'alpha65'}
+data_EU['AUS'] = {fillKey: 'alpha50'}
+data_EU['BRA'] = {fillKey: 'alpha50'}
+data_EU['POL'] = {fillKey: 'alpha50'}
 
 var map = new Datamap({
     scope: 'world',
@@ -85,9 +99,10 @@ var map = new Datamap({
     height: 600,
     fills: {
       defaultFill: '#c2bdc5',
-      lt50: 'rgba(0,244,244,0.9)',
-      lb50: 'rgba(10, 225, 225, 0.9)',
-      gt50: 'red'
+      alpha25: 'rgba(0, 0, 255, 0.25)',
+      alpha50: 'rgba(0, 0, 255, 0.50)',
+      alpha65: 'rgba(0, 0, 255, 0.65)',
+      alpha100: 'blue'
     },
 
     data: data_EU
