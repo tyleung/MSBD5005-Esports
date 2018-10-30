@@ -3,9 +3,9 @@ service: default
 
 handlers:
 - url: /
-  static_files: www/index.html
-  upload: www/index.html
+  static_files: build/index.html
+  upload: build/index.html
 
 - url: /(.*)
-  static_files: www/\1
-  upload: www/(.*)
+  static_files: build/\1
+  upload: build/(.*)
