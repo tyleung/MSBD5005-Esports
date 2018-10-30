@@ -1,4 +1,5 @@
 import Countries from './countries';
+import * as Datamap from 'datamaps';
 
 //basic map config with custom fills, mercator projection
 const countries_EU = [

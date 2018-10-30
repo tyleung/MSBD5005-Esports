@@ -47,6 +47,9 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0"
+    "@babel/polyfill": "^7.0.0",
+    "d3": "^5.7.0",
+    "datamaps": "^0.5.9",
+    "topojson": "^3.0.2"
   }
 }
