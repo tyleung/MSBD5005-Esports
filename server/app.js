@@ -17,17 +17,28 @@ const express = require('express');
 
 const app = express();
 
-// [START hello_world]
-// Say hello!
+// CORS middleware
+var allowCrossDomain = function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+}
+
+app.use(allowCrossDomain);
+
 app.get('/', (req, res) => {
   res.status(200).send('Hello, world test commit!');
 });
-// [END hello_world]
+
+app.get('/test', (req, res) => {
+  res.status(200).send('test api call!');
+});
 
 if (module === require.main) {
   // [START server]
   // Start the server
-  const server = app.listen(process.env.PORT || 8080, () => {
+  const server = app.listen(process.env.PORT || 8081, () => {
     const port = server.address().port;
     console.log(`App listening on port ${port}`);
   });
