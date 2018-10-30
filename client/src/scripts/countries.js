@@ -1,4 +1,4 @@
-Countries = {
+const Countries = {
     "AFG": "Afghanistan",
     "AGO": "Angola",
     "ALB": "Albania",
@@ -175,4 +175,6 @@ Countries = {
     "ZAF": "South Africa",
     "ZMB": "Zambia",
     "ZWE": "Zimbabwe"
-}
+};
+
+export default Countries;

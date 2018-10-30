@@ -1,5 +1,7 @@
+import Countries from './countries';
+
 //basic map config with custom fills, mercator projection
-countries_EU = [
+const countries_EU = [
     'Russia',
     'Ukraine',
     'France',
@@ -47,11 +49,12 @@ countries_EU = [
     'San Marino',
     'Monaco',
     'Kosovo'
-]
-countries_EU_shortcode = []
-data_EU = {}
+];
 
-countries_EU_short = Object.keys(Countries).map(function(key) {
+var countries_EU_shortcode = [];
+var data_EU = {};
+
+var countries_EU_short = Object.keys(Countries).map(function(key) {
     // console.log(obj)
     if(countries_EU.indexOf(Countries[key]) > 0) {
         countries_EU_shortcode.push(key)
@@ -60,20 +63,20 @@ countries_EU_short = Object.keys(Countries).map(function(key) {
 
 countries_EU_shortcode.forEach(code => {
     data_EU[code] = {fillKey: 'lb50'}
-})
+});
 
-other_countries = [
+var other_countries = [
     'USA',
     'CAN',
     'AUS',
     'RUS',
     'CHN',
     'KOR'
-]
+];
 
 other_countries.forEach(code => {
     data_EU[code] = {fillKey: 'gt50'}
-})
+});
 
 var map = new Datamap({
     scope: 'world',

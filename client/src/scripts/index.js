@@ -1,3 +1,5 @@
 import '../styles/index.scss';
+import 'axios';
+import './main';
 
-console.log('webpack starterkit');
+console.log('js loaded');
