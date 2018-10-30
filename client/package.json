@@ -1,0 +1,14 @@
+{
+  "name": "MSBD-5005-Project",
+  "version": "1.0.0",
+  "description": "Project for MSBD 5005",
+  "scripts": {},
+  "author": "MSBD 5005 Group",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.18.0"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  }
+}
