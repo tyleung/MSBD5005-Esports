@@ -14,6 +14,7 @@
 'use strict';
 
 const express = require('express');
+const db = require('./db');
 
 const app = express();
 
@@ -23,7 +24,7 @@ const allowCrossDomain = function(req, res, next) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
-}
+};
 
 app.use(allowCrossDomain);
 
@@ -32,17 +33,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  res.status(200).send('test api call!');
+  db.getUsers().then(users => {
+    res.status(200).send(users);
+  });
 });
 
 if (module === require.main) {
-  // [START server]
   // Start the server
   const server = app.listen(process.env.PORT || 8081, () => {
     const port = server.address().port;
     console.log(`App listening on port ${port}`);
   });
-  // [END server]
 }
 
 module.exports = app;

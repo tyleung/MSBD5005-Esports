@@ -63,3 +63,6 @@ testing/*
 
 # output
 dist
+
+# environment variables for Google Cloud SQL
+app.standard.yaml
