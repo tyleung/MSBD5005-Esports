@@ -1,57 +1,7 @@
-import Countries from "./countries";
+import { Countries, countries_EU } from "./countries";
 import * as Datamap from "datamaps";
 
 //basic map config with custom fills, mercator projection
-const countries_EU = [
-  "Russia",
-  "Ukraine",
-  "France",
-  "Spain",
-  "Sweden",
-  "Norway",
-  "Germany",
-  "Finland",
-  "Poland",
-  "Italy",
-  "United Kingdom",
-  "Romania",
-  "Belarus",
-  "Greece",
-  "Bulgaria",
-  "Iceland",
-  "Hungary",
-  "Portugal",
-  "Austria",
-  "Czech Republic",
-  "Republic of Serbia",
-  "Bosnia and Herzegovina",
-  "Ireland",
-  "Lithuania",
-  "Latvia",
-  "Croatia",
-  "Slovakia",
-  "Estonia",
-  "Denmark",
-  "Switzerland",
-  "Netherlands",
-  "Moldova",
-  "Belgium",
-  "Armenia",
-  "Albania",
-  "Macedonia",
-  "Turkey",
-  "Slovenia",
-  "Montenegro",
-  "Cyprus",
-  "Luxembourg",
-  "Andorra",
-  "Malta",
-  "Liechtenstein",
-  "San Marino",
-  "Monaco",
-  "Kosovo"
-];
-
 var countries_EU_shortcode = [];
 var data_EU = {};
 
@@ -72,6 +22,7 @@ var other_countries = ["USA", "CAN", "AUS", "RUS", "CHN", "KOR"];
 //});
 
 data_EU["CHN"] = { fillKey: "alpha100" };
+data_EU["TWN"] = { fillKey: "alpha100" };
 data_EU["USA"] = { fillKey: "alpha100" };
 data_EU["KOR"] = { fillKey: "alpha100" };
 data_EU["SWE"] = { fillKey: "alpha65" };
