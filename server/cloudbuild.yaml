@@ -1,4 +1,5 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['app', 'deploy', 'app.yaml']
+    args: ['app', 'deploy']
+    dir: './'
 timeout: '1600s'
