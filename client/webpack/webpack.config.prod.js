@@ -1,6 +1,7 @@
 const Path = require('path');
 const Webpack = require('webpack');
 const merge = require('webpack-merge');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
 
@@ -14,6 +15,7 @@ module.exports = merge(common, {
     chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
   },
   plugins: [
+    new CleanWebpackPlugin(['build'], { root: Path.resolve(__dirname, '..') }),
     new Webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
@@ -31,11 +33,7 @@ module.exports = merge(common, {
       },
       {
         test: /\.s?css/i,
-        use : [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   }
