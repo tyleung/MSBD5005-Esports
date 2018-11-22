@@ -17,7 +17,8 @@ module.exports = merge(common, {
   },
   plugins: [
     new Webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      'process.env.API_URL': JSON.stringify('http://localhost:8081')
     })
   ],
   module: {
@@ -28,7 +29,7 @@ module.exports = merge(common, {
         enforce: 'pre',
         loader: 'eslint-loader',
         options: {
-          emitWarning: true,
+          emitWarning: true
         }
       },
       {

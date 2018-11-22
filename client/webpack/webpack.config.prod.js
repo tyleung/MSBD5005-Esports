@@ -17,7 +17,10 @@ module.exports = merge(common, {
   plugins: [
     new CleanWebpackPlugin(['build'], { root: Path.resolve(__dirname, '..') }),
     new Webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.API_URL': JSON.stringify(
+        'https://api-dot-msbd5005-esports.appspot.com'
+      )
     }),
     new Webpack.optimize.ModuleConcatenationPlugin(),
     new MiniCssExtractPlugin({
