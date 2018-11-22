@@ -18,15 +18,12 @@ To test locally, the default url is http://localhost:8080
 
 **Running the server**:  
 `cd server/`  
-`npm run start` or `yarn start`
+`npm run dev-start` or `yarn dev-start`
 
 To test locally, the default url is http://localhost:8081
 
 **Deployment**:  
-If there are changes to the client code, the static files need to be rebuilt:  
-`cd client/`  
-`npm run build` or `yarn build`  
-
 Pushing to master will activate the Google Cloud build trigger for deployment:  
 `git push origin master`  
-This will deploy both the client and server files.
+This will deploy the client files if there are changes in the client folder,
+and also the server files if there are changes in the server folder.
