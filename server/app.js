@@ -26,6 +26,59 @@ app.get('/test', (req, res) => {
   });
 });
 
+app.get('/tournaments', (req, res) => {
+  db.getTournaments().then(tournaments => {
+    res.status(200).send(tournaments);
+  });
+});
+app.get('/tournaments/:id', (req, res) => {
+  db.getTournamentById(req.params.id).then(tournament => {
+    res.status(200).send(tournament);
+  });
+});
+
+app.get('/prizepools', (req, res) => {
+  db.getPrizePools().then(prizepools => {
+    res.status(200).send(prizepools);
+  });
+});
+app.get('/prizepools/:tournamentId', (req, res) => {
+  db.getPrizePoolByTournamentId(req.params.tournamentId).then(prizepool => {
+    res.status(200).send(prizepool);
+  });
+});
+
+// will need to change this
+/*
+app.get('/rankings/:tournamentId', (req, res) => {
+  db.getTournamentTeamRankingByTournamentId(req.param.tournamentId).then(prizepool => {
+    res.status(200).send(prizepool);
+  });
+});
+*/
+
+app.get('/teams', (req, res) => {
+  db.getTeams().then(teams => {
+    res.status(200).send(teams);
+  });
+});
+app.get('/teams/:id', (req, res) => {
+  db.getTeamById(req.params.id).then(team => {
+    res.status(200).send(team);
+  });
+});
+
+app.get('/games', (req, res) => {
+  db.getGames().then(games => {
+    res.status(200).send(games);
+  });
+});
+app.get('/games/:id', (req, res) => {
+  db.getGameById(req.params.id).then(game => {
+    res.status(200).send(game);
+  });
+});
+
 if (module === require.main) {
   // Start the server
   const server = app.listen(process.env.PORT || 8081, () => {
