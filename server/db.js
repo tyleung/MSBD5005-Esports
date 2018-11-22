@@ -1,3 +1,5 @@
+const Knex = require('knex');
+
 const config = {
   user: process.env.SQL_USER,
   password: process.env.SQL_PASSWORD,
@@ -12,7 +14,7 @@ if (
 }
 
 // Connect to the database
-const knex = require('knex')({
+const knex = Knex({
   client: 'mysql',
   connection: config
 });
