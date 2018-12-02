@@ -1,7 +1,7 @@
 var Crawler = require('crawler');
 var fs = require('fs');
 
-var filename = './data/dota_tourney.csv';
+var filename = './data/csgo.csv';
 var linkfile = './links.txt';
 
 fs.writeFile(filename, '', err => {});
