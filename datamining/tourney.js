@@ -41,6 +41,11 @@ var cl = new Crawler({
                   .children()
                   .text()
                   .trim();
+              } else if (i == 1) {
+                text += $(this)
+                  .text()
+                  .trim()
+                  .replace(/,/g, '');
               } else if (i == 2) {
                 text += $(this)
                   .text()
