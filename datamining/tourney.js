@@ -1,6 +1,7 @@
 var Crawler = require('crawler');
 var fs = require('fs');
 
+// data filename
 filename = "./data/csgo_tournament.csv"
 
 // clear file content
@@ -20,74 +21,33 @@ var cl = new Crawler({
     if (err) {
       console.log(err);
     } else {
-      var $ = res.$;
-      var tourney = $('div.tournament-card');
+        var $ = res.$;
+        var tourney = $('div.tournament-card');
 
-<<<<<<< HEAD
-      tourney.each(function(i, elem) {
-        var rows = $(this).children('.divRow');
-        rows.each(function(i, elem) {
-          var cells = $(this).children('.divCell');
-          text = '';
-          cells.each(function(i, elem) {
-            if (i < 5) {
-              if (i == 0) {
-                text += $('b', elem)
-                  .children()
-                  .text()
-                  .trim();
-              } else if (i == 2) {
-                text += $(this)
-                  .text()
-                  .trim()
-                  .replace(/,/g, '')
-                  .replace('$', '');
-              } else {
-                text += $(this)
-                  .text()
-                  .trim();
-              }
-              text += ',';
-            }
-          });
-          text += '\n';
-          fs.appendFile('tourney.csv', text, err => {
-            if (err) throw err;
-          });
-        });
-      });
-=======
-            tourney.each(function(i, elem) {
-                var rows = $(this).children('.divRow')
-                rows.each(function(i, elem) {
-                    var cells = $(this).children('.divCell')
-                    text = ''
-                    cells.each(function(i, elem) {
-                        if(i < 5) {
-                            if(i == 0) {
-                                text += $('b', elem).children().text().trim()
-                            } else if(i == 2) {
-                                text += $(this).text().trim().replace(/,/g ,'').replace('$', '')
-                            } else {
-                                text += $(this).text().trim()
-                            }
-                            text += ','
+        tourney.each(function(i, elem) {
+            var rows = $(this).children('.divRow')
+            rows.each(function(i, elem) {
+                var cells = $(this).children('.divCell')
+                text = ''
+                cells.each(function(i, elem) {
+                    if(i < 5) {
+                        if(i == 0) {
+                            text += $('b', elem).children().text().trim()
+                        } else if(i == 2) {
+                            text += $(this).text().trim().replace(/,/g ,'').replace('$', '')
+                        } else {
+                            text += $(this).text().trim()
                         }
-                    });
-                    text += '\n'
-                    appendToFile(filename, text)
+                        text += ','
+                    }
                 });
+                text += '\n'
+                appendToFile(filename, text)
             });
-        }
-        done()
->>>>>>> 90282c4f4c47a8e5f11d86236bb519eb538c578b
+        });
     }
-    done();
+    done()
   }
 });
 
-<<<<<<< HEAD
-cl.queue(['https://liquipedia.net/dota2/Premier_Tournaments']);
-=======
 cl.queue(['https://liquipedia.net/counterstrike/Major_Tournaments'])
->>>>>>> 90282c4f4c47a8e5f11d86236bb519eb538c578b
