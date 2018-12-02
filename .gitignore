@@ -69,4 +69,4 @@ dist
 build
 
 # environment variables for Google Cloud SQL
-app.standard.yaml
+env.yaml

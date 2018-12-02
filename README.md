@@ -17,6 +17,10 @@ Make sure node.js is up to date, then run
 To test locally, the default url is http://localhost:8080
 
 **Running the server**:  
+Run the database proxy to connect to the Cloud SQL:  
+`./cloud_sql_proxy -instances=msbd5005-esports:asia-east2:msbd5005-esports-db=tcp:3306`
+
+Run the server:
 `cd server/`  
 `npm run dev-start` or `yarn dev-start`
 

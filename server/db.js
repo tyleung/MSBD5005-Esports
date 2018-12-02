@@ -1,3 +1,5 @@
+const Knex = require('knex');
+
 const config = {
   user: process.env.SQL_USER,
   password: process.env.SQL_PASSWORD,
@@ -12,7 +14,7 @@ if (
 }
 
 // Connect to the database
-const knex = require('knex')({
+const knex = Knex({
   client: 'mysql',
   connection: config
 });
@@ -56,6 +58,18 @@ getTournamentById = id => {
     });
 };
 
+// Get all prize pools.
+getPrizePools = () => {
+  return knex
+    .select()
+    .from('PrizePool')
+    .then(response => response)
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
+
 // Get prize pool by tournament id.
 getPrizePoolByTournamentId = id => {
   return knex
@@ -83,36 +97,11 @@ getTournamentTeamRankingByTournamentId = id => {
 };
 
 // Get prize pool by team id.
-getTournamentTeamRankingByTournamentId = id => {
+getTournamentTeamRankingByTeamId = id => {
   return knex
     .select()
     .from('TournamentTeamRanking')
     .where('teamId', id)
-    .then(response => response)
-    .catch(err => {
-      console.log(err);
-      throw err;
-    });
-};
-
-// Get all games.
-getGames = () => {
-  return knex
-    .select()
-    .from('Game')
-    .then(response => response)
-    .catch(err => {
-      console.log(err);
-      throw err;
-    });
-};
-
-// Get game by id.
-getGameById = id => {
-  return knex
-    .select()
-    .from('Game')
-    .where('id', id)
     .then(response => response)
     .catch(err => {
       console.log(err);
@@ -145,6 +134,41 @@ getTeamById = id => {
     });
 };
 
+// Get all games.
+getGames = () => {
+  return knex
+    .select()
+    .from('Game')
+    .then(response => response)
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
+
+// Get game by id.
+getGameById = id => {
+  return knex
+    .select()
+    .from('Game')
+    .where('id', id)
+    .then(response => response)
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
+
 module.exports = {
-  getUsers
+  getUsers,
+  getTournaments,
+  getTournamentById,
+  getPrizePools,
+  getPrizePoolByTournamentId,
+  getTournamentTeamRankingByTournamentId,
+  getTournamentTeamRankingByTeamId,
+  getTeams,
+  getTeamById,
+  getGames,
+  getGameById
 };
