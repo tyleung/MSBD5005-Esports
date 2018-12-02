@@ -4,11 +4,11 @@ var fs = require('fs');
 var filename = './data/dota_tourney.csv';
 var linkfile = './links.txt';
 
-fs.writeFile(filename, '', (err => {}));
+fs.writeFile(filename, '', err => {});
 
 function getLinks(filename) {
-    var content = fs.readFileSync(filename, 'utf8');
-    return content.split('\n');
+  var content = fs.readFileSync(filename, 'utf8');
+  return content.split('\n');
 }
 
 var c = new Crawler({
@@ -28,14 +28,18 @@ var c = new Crawler({
       var table = $("tr[class*='place']", 'table.prizepooltable');
       rank = 1;
       prevPrize = 0;
+      rowSpanOver1Counter = 0;
 
       // Iterate over each row
       table.each(function(i, elem) {
         text = tourney + ',';
         numCols = $(this).children('td').length;
+        placetd = $(this).children('td')[0];
+        placetdRowSpan = $(placetd).attr('rowspan') || 1;
 
         text += rank + ',';
-        if (numCols > 1) {
+        if (rowSpanOver1Counter === 0) {
+          rowSpanOver1Counter = placetdRowSpan - 1;
           prizetd = $(this).children('td')[1];
           prize = $(prizetd)
             .text()
@@ -45,7 +49,20 @@ var c = new Crawler({
           prevPrize = prize;
           text += prize + ',';
         } else {
-          text += prevPrize + ',';
+          rowSpanOver1Counter -= 1;
+
+          if (numCols > 1) {
+            prizetd = $(this).children('td')[0];
+            prize = $(prizetd)
+              .text()
+              .trim()
+              .replace(/,/g, '')
+              .replace('$', '');
+            prevPrize = prize;
+            text += prize + ',';
+          } else {
+            text += prevPrize + ',';
+          }
         }
 
         teamtd = $(this).children('td')[numCols - 1];
@@ -55,7 +72,7 @@ var c = new Crawler({
         text += team;
         text += '\n';
         rank += 1;
-        fs.appendFile(filename, text, (err) => {
+        fs.appendFile(filename, text, err => {
           if (err) throw err;
         });
       });
