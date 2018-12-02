@@ -1,6 +1,11 @@
 var Crawler = require('crawler');
 var fs = require('fs');
 
+gameName = process.argv[2];
+if (gameName === undefined) {
+  throw Error('Missing argument: gameName');
+}
+
 filename = 'links.txt';
 
 // clear file content
@@ -42,4 +47,4 @@ var cl = new Crawler({
   }
 });
 
-cl.queue(['https://liquipedia.net/counterstrike/Premier_Tournaments']);
+cl.queue(['https://liquipedia.net/dota2/Premier_Tournaments']);

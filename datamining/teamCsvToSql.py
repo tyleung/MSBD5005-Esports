@@ -2,12 +2,13 @@
 import pandas as pd
 
 # Change accordingly
-data_file = "./data/csgo.csv"
-gameId = 2
-gameName = "csgo"
+gameId = 1
+gameName = "dota2"
 
-with open(gameName + "-teams.sql", 'w', encoding="utf-8") as f:
-    df = pd.read_csv(data_file, header=0, index_col=None)
+fin = "./data/" + gameName + ".csv"
+fout = gameName + "-teams.sql"
+with open(fout, 'w', encoding="utf-8") as f:
+    df = pd.read_csv(fin, header=0, index_col=None)
     df.columns = ["tournament", "rank", "earning", "team"]
 
     teams = [team.strip() for team in df["team"].values]

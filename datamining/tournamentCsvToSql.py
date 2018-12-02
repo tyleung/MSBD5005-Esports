@@ -4,8 +4,8 @@ import datetime
 import calendar
 
 # Change gameId and gameName accordingly
-gameId = 2
-gameName = "csgo"
+gameId = 1
+gameName = "dota2"
 
 threshold = 50000
 

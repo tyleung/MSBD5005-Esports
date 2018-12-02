@@ -1,7 +1,11 @@
 var Crawler = require('crawler');
 var fs = require('fs');
 
-var filename = './data/csgo.csv';
+gameName = process.argv[2];
+if (gameName === undefined) {
+  throw Error('Missing argument: gameName');
+}
+var filename = './data/' + gameName + '.csv';
 var linkfile = './links.txt';
 
 fs.writeFile(filename, '', err => {});

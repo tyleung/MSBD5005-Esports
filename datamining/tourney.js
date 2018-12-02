@@ -1,8 +1,13 @@
 var Crawler = require('crawler');
 var fs = require('fs');
 
+gameName = process.argv[2];
+if (gameName === undefined) {
+  throw Error('Missing argument: gameName');
+}
+
 // data filename
-filename = './data/csgo-tournaments.csv';
+filename = './data/' + gameName + '-tournaments.csv';
 
 // clear file content
 fs.writeFile(filename, '', err => {
@@ -59,4 +64,4 @@ var cl = new Crawler({
   }
 });
 
-cl.queue(['https://liquipedia.net/counterstrike/Major_Tournaments']);
+cl.queue(['https://liquipedia.net/' + gameName + '/Major_Tournaments']);
