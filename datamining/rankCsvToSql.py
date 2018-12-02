@@ -2,7 +2,7 @@
 import pandas as pd
 
 # Change accordingly:
-data_file = "./data.csv"
+data_file = "./data/csgo.csv"
 gameId = 2
 gameName = "csgo"
 
