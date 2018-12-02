@@ -1,6 +1,19 @@
 var Crawler = require('crawler');
 var fs = require('fs');
 
+filename = "./data/csgo_tournament.csv"
+
+// clear file content
+fs.writeFile(filename, '', (err) => {
+    return false;
+});
+
+function appendToFile(filename, text) {
+    fs.appendFile(filename, text, (err) => {
+        if (err) throw err;
+    });
+}
+
 var cl = new Crawler({
   maxConnections: 10,
   callback: function(err, res, done) {
@@ -10,6 +23,7 @@ var cl = new Crawler({
       var $ = res.$;
       var tourney = $('div.tournament-card');
 
+<<<<<<< HEAD
       tourney.each(function(i, elem) {
         var rows = $(this).children('.divRow');
         rows.each(function(i, elem) {
@@ -42,9 +56,38 @@ var cl = new Crawler({
           });
         });
       });
+=======
+            tourney.each(function(i, elem) {
+                var rows = $(this).children('.divRow')
+                rows.each(function(i, elem) {
+                    var cells = $(this).children('.divCell')
+                    text = ''
+                    cells.each(function(i, elem) {
+                        if(i < 5) {
+                            if(i == 0) {
+                                text += $('b', elem).children().text().trim()
+                            } else if(i == 2) {
+                                text += $(this).text().trim().replace(/,/g ,'').replace('$', '')
+                            } else {
+                                text += $(this).text().trim()
+                            }
+                            text += ','
+                        }
+                    });
+                    text += '\n'
+                    appendToFile(filename, text)
+                });
+            });
+        }
+        done()
+>>>>>>> 90282c4f4c47a8e5f11d86236bb519eb538c578b
     }
     done();
   }
 });
 
+<<<<<<< HEAD
 cl.queue(['https://liquipedia.net/dota2/Premier_Tournaments']);
+=======
+cl.queue(['https://liquipedia.net/counterstrike/Major_Tournaments'])
+>>>>>>> 90282c4f4c47a8e5f11d86236bb519eb538c578b
