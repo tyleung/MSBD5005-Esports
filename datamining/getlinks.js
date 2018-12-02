@@ -1,6 +1,19 @@
 var Crawler = require("crawler")
 var fs = require("fs")
 
+filename = "links.txt"
+
+// clear file content
+fs.writeFile(filename, '', (err) => {
+    return false;
+});
+
+function appendToFile(filename, text) {
+    fs.appendFile(filename, text, (err) => {
+        if (err) throw err;
+    });
+}
+
 var cl = new Crawler({
     maxConnections: 10,
     callback: function(err, res, done) {
@@ -15,10 +28,8 @@ var cl = new Crawler({
                 rows.each(function(i, elem) {
                     var first = $(this).children('.Tournament')
                     
-                    link = '"https://liquipedia.net' + $('b', first).children().attr('href') + '",\n'
-                    fs.appendFile('link.txt', link, (err) => {
-                        if (err) throw err;
-                    });
+                    link = 'https://liquipedia.net' + $('b', first).children().attr('href') + '\n'
+                    appendToFile(filename, link)
                 });
             });
         }

@@ -1,6 +1,7 @@
 var Crawler = require("crawler")
 var fs = require("fs")
 
+// data filename
 filename = "./data/csgo_tournament.csv"
 
 // clear file content
