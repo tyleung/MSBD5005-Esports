@@ -1,6 +1,19 @@
 var Crawler = require("crawler")
 var fs = require("fs")
 
+filename = "./data/csgo_tournament.csv"
+
+// clear file content
+fs.writeFile(filename, '', (err) => {
+    return false;
+});
+
+function appendToFile(filename, text) {
+    fs.appendFile(filename, text, (err) => {
+        if (err) throw err;
+    });
+}
+
 var cl = new Crawler({
     maxConnections: 10,
     callback: function(err, res, done) {
@@ -28,9 +41,7 @@ var cl = new Crawler({
                         }
                     });
                     text += '\n'
-                    fs.appendFile('tourney.csv', text, (err) => {
-                        if (err) throw err;
-                    });
+                    appendToFile(filename, text)
                 });
             });
         }
@@ -38,4 +49,4 @@ var cl = new Crawler({
     }
 })
 
-cl.queue(['https://liquipedia.net/counterstrike/Premier_Tournaments'])
+cl.queue(['https://liquipedia.net/counterstrike/Major_Tournaments'])
