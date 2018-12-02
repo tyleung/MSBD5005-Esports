@@ -43,6 +43,8 @@ with open(in_file, 'r', encoding="utf-8") as fin, open(out_file, 'w', encoding="
         dates = line_split[1].strip()
         start_date, end_date = parseDates(dates)
         prize_pool = line_split[3].strip()
+        if not prize_pool:
+            prize_pool = 0
         # num_teams = line_split[4].strip()
         city = line_split[5].strip()
         country = line_split[-1].strip()
