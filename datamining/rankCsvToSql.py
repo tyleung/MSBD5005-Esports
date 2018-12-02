@@ -4,7 +4,7 @@ import pandas as pd
 # Change accordingly:
 data_file = "./data.csv"
 gameId = 2
-gameName = "dota2"
+gameName = "csgo"
 
 with open(gameName + "-rankings.sql", 'w', encoding="utf-8") as f:
     df = pd.read_csv(data_file, header=0, index_col=None)
