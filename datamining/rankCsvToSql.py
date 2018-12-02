@@ -1,14 +1,18 @@
+# Convert output from crawler.js to sql format for team rankings.
 import pandas as pd
 
-with open("csgo-rankings.sql", 'w', encoding="utf-8") as f:
-    data_file = "./data/csgo-rankings.csv"
+# Change accordingly:
+data_file = "./data.csv"
+gameId = 2
+gameName = "dota2"
+
+with open(gameName + "-rankings.sql", 'w', encoding="utf-8") as f:
     df = pd.read_csv(data_file, header=0, index_col=None)
     df.columns = ["tournament", "rank", "earning", "team"]
     # columns:
     # tournament, rank, earning, team
 
     tournament = ""
-    gameId = 2
     count34 = 0
     for index, row in df.iterrows():
         new_tournament = row["tournament"].strip()

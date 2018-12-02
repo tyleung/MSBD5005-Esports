@@ -1,5 +1,5 @@
-var Crawler = require("crawler")
-var fs = require("fs")
+var Crawler = require('crawler');
+var fs = require('fs');
 
 // data filename
 filename = "./data/csgo_tournament.csv"
@@ -16,38 +16,38 @@ function appendToFile(filename, text) {
 }
 
 var cl = new Crawler({
-    maxConnections: 10,
-    callback: function(err, res, done) {
-        if(err) {
-            console.log(err);
-        } else {
-            var $ = res.$;
-            var tourney = $("div.tournament-card")
+  maxConnections: 10,
+  callback: function(err, res, done) {
+    if (err) {
+      console.log(err);
+    } else {
+        var $ = res.$;
+        var tourney = $('div.tournament-card');
 
-            tourney.each(function(i, elem) {
-                var rows = $(this).children('.divRow')
-                rows.each(function(i, elem) {
-                    var cells = $(this).children('.divCell')
-                    text = ''
-                    cells.each(function(i, elem) {
-                        if(i < 5) {
-                            if(i == 0) {
-                                text += $('b', elem).children().text().trim()
-                            } else if(i == 2) {
-                                text += $(this).text().trim().replace(/,/g ,'').replace('$', '')
-                            } else {
-                                text += $(this).text().trim()
-                            }
-                            text += ','
+        tourney.each(function(i, elem) {
+            var rows = $(this).children('.divRow')
+            rows.each(function(i, elem) {
+                var cells = $(this).children('.divCell')
+                text = ''
+                cells.each(function(i, elem) {
+                    if(i < 5) {
+                        if(i == 0) {
+                            text += $('b', elem).children().text().trim()
+                        } else if(i == 2) {
+                            text += $(this).text().trim().replace(/,/g ,'').replace('$', '')
+                        } else {
+                            text += $(this).text().trim()
                         }
-                    });
-                    text += '\n'
-                    appendToFile(filename, text)
+                        text += ','
+                    }
                 });
+                text += '\n'
+                appendToFile(filename, text)
             });
-        }
-        done()
+        });
     }
-})
+    done()
+  }
+});
 
 cl.queue(['https://liquipedia.net/counterstrike/Major_Tournaments'])
