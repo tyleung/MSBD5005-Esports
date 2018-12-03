@@ -5,7 +5,7 @@ import pandas as pd
 gameId = 1
 gameName = "dota2"
 
-fin = "./data/" + gameName + ".csv"
+fin = "./data/" + gameName + "-rankings.csv"
 fout = gameName + "-rankings.sql"
 with open(fout, 'w', encoding="utf-8") as f:
     df = pd.read_csv(fin, header=0, index_col=None)
@@ -19,7 +19,7 @@ with open(fout, 'w', encoding="utf-8") as f:
         new_tournament = row["tournament"].strip()
         if tournament != new_tournament:
             tournament = new_tournament
-            tournamentIdsql = f'SELECT id INTO @tournamentId FROM Tournament WHERE name = "{tournament}" and gameId=2;'
+            tournamentIdsql = f'SELECT id INTO @tournamentId FROM Tournament WHERE name = "{tournament}" and gameId={gameId};'
             f.write(tournamentIdsql)
             f.write('\n')
 
