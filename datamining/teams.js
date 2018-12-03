@@ -30,9 +30,14 @@ function getTeamsURL(filename) {
 
   links = unique.map(teamname => {
     // tn = teamname.replace(/ /g, '_')
-    return (
-      'https://liquipedia.net/' + gameName + '/' + encodeURIComponent(teamname)
-    );
+    return {
+      uri:
+        'https://liquipedia.net/' +
+        gameName +
+        '/' +
+        encodeURIComponent(teamname),
+      retries: 0
+    };
   });
 
   return links;
@@ -40,10 +45,6 @@ function getTeamsURL(filename) {
 
 var crawler = new Crawler({
   maxConnections: 10,
-  options: {
-    // Move on if request fails to avoid being rate limited due to invalid querying
-    retries: 0
-  },
   callback: function(err, res, done) {
     if (err) {
       console.log(err);
@@ -55,6 +56,7 @@ var crawler = new Crawler({
       .remove()
       .end()
       .text();
+    console.log(team);
     var box = $('.fo-nttax-infobox').children();
     var country = box
       .eq(3)
