@@ -24,12 +24,9 @@ function getTeamsURL(filename) {
   var rows = content.split('\n');
   var teams = rows.map(function(row) {
     row = row.split(',');
-    return row[row.length - 1];
+    return row[row.length - 1].trim();
   });
-
-  unique = teams.filter((x, idx, self) => {
-    return self.indexOf(x) === idx;
-  });
+  unique = Array.from(new Set(teams));
 
   links = unique.map(teamname => {
     // tn = teamname.replace(/ /g, '_')

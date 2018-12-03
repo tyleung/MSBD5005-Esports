@@ -24,25 +24,13 @@ with open(fout, 'w', encoding="utf-8") as f:
             f.write('\n')
 
         team = row["team"].strip()
+        if team == "TBD":
+            continue
+
         teamIdsql = f'SELECT id INTO @teamId FROM Team WHERE name = "{team}" and gameId = {gameId};'
         f.write(teamIdsql)
         f.write('\n')
         rank = row["rank"]
-        if rank == "1st":
-            rank = 1
-        elif rank == "2nd":
-            rank = 2
-        elif rank == "3rd":
-            rank = 3
-        elif rank == "4th":
-            rank = 4
-        elif rank == "3rd-4th":
-            count34 += 1
-            if count34 == 2:
-                rank = 4
-                count34 = 0
-            else:
-                rank = 3
 
         # prize = row["earning"]
         prize = float(row["earning"].replace(

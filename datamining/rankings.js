@@ -115,7 +115,7 @@ var cl = new Crawler({
     done();
   }
 });
-cl.queue(['https://liquipedia.net/' + gameName + '/Major_Tournaments']);
+cl.queue(['https://liquipedia.net/' + gameName + '/Premier_Tournaments']);
 
 cl.on('drain', function() {
   c.queue(links);

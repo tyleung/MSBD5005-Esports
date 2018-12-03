@@ -69,4 +69,4 @@ var cl = new Crawler({
   }
 });
 
-cl.queue(['https://liquipedia.net/' + gameName + '/Major_Tournaments']);
+cl.queue(['https://liquipedia.net/' + gameName + '/Premier_Tournaments']);
