@@ -64,11 +64,20 @@ var crawler = new Crawler({
       .children()
       .eq(1)
       .text();
-    var region = box
+    var regionLabel = box
       .eq(4)
       .children()
-      .eq(1)
+      .eq(0)
       .text();
+
+    var region = '';
+    if (regionLabel == 'Region:') {
+      region = box
+        .eq(4)
+        .children()
+        .eq(1)
+        .text();
+    }
 
     var text = [gameName, team, country, region].join(',') + '\n';
     // console.log(text)
