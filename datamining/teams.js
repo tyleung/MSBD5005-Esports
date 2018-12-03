@@ -44,7 +44,7 @@ function getTeamsURL(filename) {
 }
 
 var crawler = new Crawler({
-  maxConnections: 10,
+  maxConnections: 1,
   callback: function(err, res, done) {
     if (err) {
       console.log(err);
@@ -56,7 +56,6 @@ var crawler = new Crawler({
       .remove()
       .end()
       .text();
-    console.log(team);
     var box = $('.fo-nttax-infobox').children();
     var country = box
       .eq(3)

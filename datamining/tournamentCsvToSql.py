@@ -4,8 +4,8 @@ import datetime
 import calendar
 
 # Change gameId and gameName accordingly
-gameId = 2
-gameName = "counterstrike"
+gameId = 3
+gameName = "overwatch"
 
 threshold = 50000
 
@@ -63,6 +63,9 @@ with open(in_file, 'r', encoding="utf-8") as fin, open(out_file, 'w', encoding="
         prize_pool = line_split[2].strip()
         if not prize_pool:
             prize_pool = 0
+        elif prize_pool == "—":
+            continue
+
         # num_teams = line_split[3].strip()
         city = line_split[4].strip()
         country = line_split[-1].strip()

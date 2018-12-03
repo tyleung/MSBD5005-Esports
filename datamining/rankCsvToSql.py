@@ -2,8 +2,8 @@
 import pandas as pd
 
 # Change accordingly:
-gameId = 2
-gameName = "counterstrike"
+gameId = 3
+gameName = "overwatch"
 
 fin = "./data/" + gameName + "-rankings.csv"
 fout = gameName + "-rankings.sql"
