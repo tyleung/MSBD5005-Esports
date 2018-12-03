@@ -5,7 +5,7 @@ gameName = process.argv[2];
 if (gameName === undefined) {
   throw Error('Missing argument: gameName');
 }
-var filename = './data/' + gameName + '.csv';
+var filename = './data/' + gameName + '-rankings.csv';
 var linkfile = './links.txt';
 
 fs.writeFile(filename, '', err => {});

@@ -5,23 +5,22 @@ import pandas as pd
 gameId = 1
 gameName = "dota2"
 
-fin = "./data/" + gameName + ".csv"
+fin = "./data/" + gameName + "-teams.csv"
 fout = gameName + "-teams.sql"
-with open(fout, 'w', encoding="utf-8") as f:
-    df = pd.read_csv(fin, header=0, index_col=None)
-    df.columns = ["tournament", "rank", "earning", "team"]
+with open(fin, 'r', encoding="utf-8") as fin, open(fout, 'w', encoding="utf-8") as fout:
+    for line in fin:
+        #df.columns = ["gameName", "team", "country", "region"]
+        line = line.strip("\n").rstrip(",")
+        line_split = line.split(",")
 
-    teams = [team.strip() for team in df["team"].values]
-    teams = set(teams)
+        if len(line_split) < 4:
+            continue
 
-    for team in teams:
-        #team = row["team"].strip()
-        #country = row["country"].strip()
-        #region = row["region"].strip()
-        country = ""
-        region = ""
+        team = line_split[1].strip()
+        country = line_split[2].strip()
+        region = line_split[3].strip()
 
         s = f'INSERT INTO Team(gameId, name, country, region) VALUES '
         s += f'({gameId}, "{team}", "{country}", "{region}");'
-        f.write(s)
-        f.write('\n')
+        fout.write(s)
+        fout.write('\n')
