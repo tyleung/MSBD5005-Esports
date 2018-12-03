@@ -2,12 +2,13 @@
 import pandas as pd
 
 # Change accordingly
-gameId = 2
-gameName = "counterstrike"
+gameId = 3
+gameName = "overwatch"
 
 fin = "./data/" + gameName + "-teams.csv"
 fout = gameName + "-teams.sql"
 with open(fin, 'r', encoding="utf-8") as fin, open(fout, 'w', encoding="utf-8") as fout:
+    teams = set()
     for line in fin:
         #df.columns = ["gameName", "team", "country", "region"]
         line = line.strip("\n").rstrip(",")
@@ -17,6 +18,9 @@ with open(fin, 'r', encoding="utf-8") as fin, open(fout, 'w', encoding="utf-8") 
             continue
 
         team = line_split[1].strip()
+        if team in teams:
+            continue
+        teams.add(team)
         country = line_split[2].strip()
         region = line_split[3].strip()
 
