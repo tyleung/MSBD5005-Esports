@@ -11,14 +11,15 @@ if (dotEnvExists) {
 }
 
 // On Google Cloud Platform authentication is handled for us
-const gcs = require('@google-cloud/storage')();
+const { Storage } = require('@google-cloud/storage');
+const gcs = new Storage();
 
-const bucketName = `envvars.${process.env.GCLOUD_PROJECT}.appspot.com`;
+const bucketName = `envvars.${process.env.GOOGLE_CLOUD_PROJECT}.appspot.com`;
 console.log(`Downloading .env from bucket "${bucketName}"`);
 gcs
   .bucket(bucketName)
   .file('.env')
-  .download({ destination: '.env' })
+  .download({ destination: '/tmp/.env' })
   .then(() => {
     console.info('getEnv.js: .env downloaded successfully');
   })
