@@ -28,7 +28,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       // Google Search Console verification
       filename: 'google2c3938223d4f7dd4.html',
-      template: Path.resolve(__dirname, '../src/google2c3938223d4f7dd4.html')
+      template: Path.resolve(__dirname, '../src/google2c3938223d4f7dd4.html'),
+      inject: false,
+      excludeChunks: ['app']
     })
   ],
   resolve: {
