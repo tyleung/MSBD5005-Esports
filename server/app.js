@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  res.status(200).send('test!' + process.env.INSTANCE_CONNECTION_NAME);
+  res.status(200).send('test!');
 });
 
 app.get('/tournaments', (req, res) => {

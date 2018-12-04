@@ -66,9 +66,6 @@ testing/*
 dist
 build
 
-# environment variables for Google Cloud SQL
-env.yaml
-
 # crawl output
 link.txt
 data.csv
