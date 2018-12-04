@@ -24,6 +24,11 @@ module.exports = {
     ]),
     new HtmlWebpackPlugin({
       template: Path.resolve(__dirname, '../src/index.html')
+    }),
+    new HtmlWebpackPlugin({
+      // Google Search Console verification
+      filename: 'google2c3938223d4f7dd4.html',
+      template: Path.resolve(__dirname, '../src/google2c3938223d4f7dd4.html')
     })
   ],
   resolve: {
