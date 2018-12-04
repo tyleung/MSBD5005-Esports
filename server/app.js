@@ -21,9 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-  db.getUsers().then(users => {
-    res.status(200).send(users);
-  });
+  res.status(200).send(process.env.SQL_USER);
 });
 
 app.get('/tournaments', (req, res) => {
