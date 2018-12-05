@@ -45,6 +45,20 @@ getTournaments = () => {
     });
 };
 
+// Get all tournaments group by country
+getTournamentsAggregateByCountry = () => {
+  return knex
+    .select('country')
+    .from('Tournament')
+    .groupBy('country')
+    .sum('prizePool')
+    .then(response => response)
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+};
+
 // Get tournament by id.
 getTournamentById = id => {
   return knex
@@ -159,9 +173,23 @@ getGameById = id => {
     });
 };
 
+getTournamentsByGameId = (gameId) => {
+  return knex.select()
+    .from('Tournament')
+    .join('Game')
+    .on('Tournament.gameId', 'Game.id')
+    .where('gameId', gameId)
+    .then(response => response)
+    .catch(err => {
+      console.log(err);
+      throw err;
+    });
+}
+
 module.exports = {
   getUsers,
   getTournaments,
+  getTournamentsAggregateByCountry,
   getTournamentById,
   getPrizePools,
   getPrizePoolByTournamentId,
