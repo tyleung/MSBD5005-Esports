@@ -39,7 +39,12 @@ app.get('/tournaments_agg', (req, res) => {
   db.getTournamentsAggregateByCountry().then(aggregate => {
     res.status(200).send(aggregate);
   })
-})
+});
+app.get('/tournaments_agg_time', (req, res) => {
+  db.getTournamentAggregate().then(aggregate => {
+    res.status(200).send(aggregate);
+  })
+});
 
 app.get('/prizepools', (req, res) => {
   db.getPrizePools().then(prizepools => {

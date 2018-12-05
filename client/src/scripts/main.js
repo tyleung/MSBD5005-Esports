@@ -1,6 +1,6 @@
 import { Countries, countries_EU } from "./countries";
 import * as Datamap from "datamaps";
-import { getTournamentAggregate } from "./api";
+import { getTournamentAggregate, getTournamentByAggregateTime } from "./api";
 
 //basic map config with custom fills, mercator projection
 var countries_EU_shortcode = [];
@@ -124,10 +124,10 @@ function getCountryShortKey(value) {
     return percent * (max - min) + min;
  }
 
- function scaleToMinMax(data, min, max) {
+ function scaleToMinMax(data, col, min, max) {
     min = min || 24;
     max = max || 55;
-    var values = data.map(obj => obj["sum(`prizePool`)"]);
+    var values = data.map(obj => obj[col]);
     // console.log(values)
     var d_max = Math.max(...values)
     var d_min = Math.min(...values)
@@ -136,11 +136,12 @@ function getCountryShortKey(value) {
 
     return data.map(obj => {
         return {
-            'centered': getCountryShortKey(obj.country),
-            'country': obj.country,
-            'radius': scaler(obj["sum(`prizePool`)"], min, max, d_max, d_min),
-            'fillKey': 'blue',
-            'prize': obj["sum(`prizePool`)"]
+            centered: getCountryShortKey(obj.country),
+            country: obj.country,
+            radius: scaler(obj[col], min, max, d_max, d_min),
+            prize: obj[col]
+            // latitude: getCityLat(obj.country),
+            // longitude: getCityLon(obj.country)
         }
     });    
  }
@@ -150,13 +151,8 @@ d3.select('#update').on('click', function(e) {
     var prom = getTournamentAggregate();
 
     prom.then(results => {
-        // console.log(results)
-
-        var bubble_data = scaleToMinMax(results)
-
-        console.log(bubble_data)
-
-        var test =[{centered: 'BRA', country: "Brazil", radius: 8.469041905584701, fillKey: "blue", prize: 800000}];
+        var bubble_data = scaleToMinMax(results, "sum(`prizePool`)")
+        // console.log(bubble_data)
         
         map.bubbles(bubble_data, {
             popupTemplate: function(geo, data) {
@@ -164,6 +160,46 @@ d3.select('#update').on('click', function(e) {
             }
         });
         
-        map.updateChoropleth(data);
+        map.updateChoropleth([]);
+    });
+});
+
+var BEGIN_DATE = 2014; // 2015 Jan
+// get the number of months since BEGIN_DATE
+function getMonthOffset(row) {
+    if (row.year < BEGIN_DATE) {
+        var offset = 0;
+    } else {
+        var offset = (row.year - BEGIN_DATE) * 12 + row.month;
+    }
+
+    return {
+        country: row.country,
+        prize: row.prize,
+        offset
+    }
+}
+
+var d_temporal = []
+getTournamentByAggregateTime().then(results => {
+    // country, year, month, prize
+    d_temporal = results[0].map(getMonthOffset);
+});
+
+d3.select('#animate').on('click', function(e) {
+    var t_offset = parseInt(document.getElementById("slider").value);
+
+    var thistime = d_temporal.filter(row => {
+        return row.offset == t_offset;
+    });
+
+    var bubbles = scaleToMinMax(thistime, "prize");
+
+    console.log(bubbles.length)
+
+    map.bubbles(bubbles, {
+        popupTemplate: function(geo, data) {
+            return "<div class='hoverinfo'>Total tournament prize for this location " + data.prize + "</div>";
+        }
     });
 });

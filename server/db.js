@@ -59,6 +59,10 @@ getTournamentsAggregateByCountry = () => {
     });
 };
 
+getTournamentAggregate = () => {
+  return knex.raw('select country, YEAR(startDate) as year, MONTH(startDate) as month, SUM(prizePool) as prize from Tournament group by country, YEAR(startDate), MONTH(startDate)');
+}
+
 // Get tournament by id.
 getTournamentById = id => {
   return knex
@@ -190,6 +194,7 @@ module.exports = {
   getUsers,
   getTournaments,
   getTournamentsAggregateByCountry,
+  getTournamentAggregate,
   getTournamentById,
   getPrizePools,
   getPrizePoolByTournamentId,
