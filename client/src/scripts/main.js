@@ -144,7 +144,7 @@ function scaler(val, min, max, yMax, yMin) {
 }
 
 function fillKeyByGameId(key) {
-  console.log(key)
+  // console.log(key)
   var ret = ''
   switch(key) {
     case 1:
@@ -198,10 +198,16 @@ function scaleToMinMax(data, col, min, max) {
 
 d3.select('#update').on('click', function(e) {
   var m = 1;
-  setInterval(function() {
-    updateByMonth(m++);
+  window.myVar = setInterval(function() {
+    m++
+    updateByMonth(m);
+    document.getElementById('slider').value = m;
   }, 2000)
 });
+
+d3.select('#stop').on('click', function(e) {
+  clearInterval(window.myVar);
+})
 
 var BEGIN_DATE = 2014; // 2015 Jan
 // get the number of months since BEGIN_DATE
