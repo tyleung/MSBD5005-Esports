@@ -6,9 +6,9 @@ import { getTournamentAggregate, getTournamentByAggregateTime } from "./api";
 var countries_EU_shortcode = [];
 var data_EU = {};
 
-var countries_EU_short = Object.keys(Countries).map(function(key) {
-	if (countries_EU.indexOf(Countries[key]) > 0) {
-		countries_EU_shortcode.push(key);
+Object.keys(Countries).map(function(key) {
+	if (countries_EU.indexOf(key) > 0) {
+		countries_EU_shortcode.push(Countries[key]);
 	}
 });
 
@@ -128,7 +128,7 @@ var data = {
  */
 
 function getCountryShortKey(value) {
-    return Object.keys(Countries).find(key => Countries[key] === value);
+    return Countries[value];
 }
 
  function scaler(val, min, max, yMax, yMin) {
