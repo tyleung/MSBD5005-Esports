@@ -13,30 +13,34 @@ var countries_EU_short = Object.keys(Countries).map(function(key) {
 });
 
 countries_EU_shortcode.forEach(code => {
-	data_EU[code] = { fillKey: "alpha25" };
+	data_EU[code] = { fillKey: "g3" };
 });
 
-var other_countries = ["USA", "CAN", "AUS", "RUS", "CHN", "KOR"];
 
-//other_countries.forEach(code => {
-//    data_EU[code] = {fillKey: 'alpha25'}
-//});
+data_EU["CHN"] = { fillKey: "g1" };
+data_EU["TWN"] = { fillKey: "g3" };
+data_EU["USA"] = { fillKey: "g0" };
+data_EU["KOR"] = { fillKey: "g0" };
+data_EU["SWE"] = { fillKey: "g4" };
+data_EU["DNK"] = { fillKey: "g3" };
+data_EU["RUS"] = { fillKey: "g3" };
+data_EU["CAN"] = { fillKey: "g4" };
+data_EU["FRA"] = { fillKey: "g3" };
+data_EU["FIN"] = { fillKey: "g4" };
+data_EU["UKR"] = { fillKey: "g4" };
+data_EU["GBR"] = { fillKey: "g0" };
+data_EU["AUS"] = { fillKey: "g3" };
+data_EU["BRA"] = { fillKey: "g4" };
+data_EU["POL"] = { fillKey: "g4" };
+data_EU["ECU"] = { fillKey: "g5" };
+data_EU["CHL"] = { fillKey: "g5" };
+data_EU["ZAF"] = { fillKey: "g5" };
+data_EU["SAU"] = { fillKey: "g5" };
+data_EU["DEU"] = { fillKey: "g1"};
+data_EU["PHL"] = {fillKey: "g2"};
 
-data_EU["CHN"] = { fillKey: "alpha100" };
-data_EU["TWN"] = { fillKey: "alpha100" };
-data_EU["USA"] = { fillKey: "alpha100" };
-data_EU["KOR"] = { fillKey: "alpha100" };
-data_EU["SWE"] = { fillKey: "alpha65" };
-data_EU["DNK"] = { fillKey: "alpha65" };
-data_EU["RUS"] = { fillKey: "alpha65" };
-data_EU["CAN"] = { fillKey: "alpha65" };
-data_EU["FRA"] = { fillKey: "alpha65" };
-data_EU["FIN"] = { fillKey: "alpha65" };
-data_EU["UKR"] = { fillKey: "alpha65" };
-data_EU["GBR"] = { fillKey: "alpha65" };
-data_EU["AUS"] = { fillKey: "alpha50" };
-data_EU["BRA"] = { fillKey: "alpha50" };
-data_EU["POL"] = { fillKey: "alpha50" };
+
+
 
 var map = new Datamap({
 	scope: "world",
@@ -47,8 +51,16 @@ var map = new Datamap({
 		defaultFill: "#c2bdc5",
 		alpha25: "rgba(0, 0, 255, 0.25)",
 		alpha50: "rgba(0, 0, 255, 0.50)",
-		alpha65: "rgba(0, 0, 255, 0.65)",
-		alpha100: "blue"
+        alpha65: "rgba(0, 0, 255, 0.65)",
+        highest: "rgba(127, 39, 4, 1)",
+        alpha100: "blue",
+        g0: "rgb(127,39,4)",
+        g1: "rgb(166,54,3)",
+        g2: "rgb(217,72,1)",
+        g3: "rgb(241,105,19)",
+        g4: "rgb(253,141,60)",
+        g5: "rgb(253,174,107)",
+        g6: "rgb(253,208,162)"
 	},
 
 	data: data_EU
@@ -139,7 +151,8 @@ function getCountryShortKey(value) {
             centered: getCountryShortKey(obj.country),
             country: obj.country,
             radius: scaler(obj[col], min, max, d_max, d_min),
-            prize: obj[col]
+            prize: obj[col],
+            fillKey: 'alpha65'
             // latitude: getCityLat(obj.country),
             // longitude: getCityLon(obj.country)
         }
@@ -186,7 +199,7 @@ getTournamentByAggregateTime().then(results => {
     d_temporal = results[0].map(getMonthOffset);
 });
 
-d3.select('#animate').on('click', function(e) {
+d3.select('#slider').on('change', function(e) {
     var t_offset = parseInt(document.getElementById("slider").value);
 
     var thistime = d_temporal.filter(row => {
@@ -195,11 +208,11 @@ d3.select('#animate').on('click', function(e) {
 
     var bubbles = scaleToMinMax(thistime, "prize");
 
-    console.log(bubbles.length)
+    // console.log(bubbles.length)
 
     map.bubbles(bubbles, {
         popupTemplate: function(geo, data) {
-            return "<div class='hoverinfo'>Total tournament prize for this location " + data.prize + "</div>";
+            return "<div class='hoverinfo'>Total tournament prize for " + data.country + ": " + data.prize + "</div>";
         }
     });
 });
