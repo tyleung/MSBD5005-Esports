@@ -74,16 +74,17 @@ var map = new Datamap({
 });
 
 map.legend({
-    defaultFillName: "No data",
-    labels: {
-      dota: 'Dota 2',
-      csgo: 'Counter Strike',
+  defaultFillName: 'No data',
+  labels: {
+    dota: 'Dota 2',
+    csgo: 'Counter Strike',
     overwatch: 'Overwatch',
     rocketleague: 'Rocket League',
     lol: 'League of Legends',
-      g0: "Highest",
-      g6: "Lowest"}
-    });
+    g0: 'Highest',
+    g6: 'Lowest'
+  }
+});
 
 //sample of the arc plugin
 // map.arc([
@@ -145,8 +146,8 @@ function scaler(val, min, max, yMax, yMin) {
 
 function fillKeyByGameId(key) {
   // console.log(key)
-  var ret = ''
-  switch(key) {
+  var ret = '';
+  switch (key) {
     case 1:
       ret = 'dota';
       break;
@@ -176,8 +177,6 @@ function scaleToMinMax(data, col, min, max) {
   var d_max = Math.max(...values);
   var d_min = Math.min(...values);
 
-  // console.log(data)
-
   return data.reduce((arr, obj) => {
     var centered = getCountryShortKey(obj.country);
     if (centered == null) {
@@ -199,10 +198,10 @@ function scaleToMinMax(data, col, min, max) {
 d3.select('#update').on('click', function(e) {
   var m = 1;
   window.myVar = setInterval(function() {
-    m++
+    m++;
     updateByMonth(m);
     document.getElementById('slider').value = m;
-  }, 2000)
+  }, 2000);
 });
 
 d3.select('#year').on('click', function(e) {
@@ -216,7 +215,7 @@ d3.select('#year').on('click', function(e) {
 
 d3.select('#stop').on('click', function(e) {
   clearInterval(window.myVar);
-})
+});
 
 var BEGIN_DATE = 2014; // 2015 Jan
 // get the number of months since BEGIN_DATE
@@ -263,11 +262,26 @@ getTournamentByAggregateYear().then(results => {
   y_temp = results[0].map(getYearOffset);
 });
 
+var month_names = [
+  'December',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November'
+];
 function offsetToDate(offset) {
   var year = Math.floor(offset / 12) + BEGIN_DATE;
   var month = offset % 12;
+  var monthName = month_names[month];
 
-  return year + '-' + month;
+  return monthName + ' ' + year;
 }
 
 function updateByYear(val) {
