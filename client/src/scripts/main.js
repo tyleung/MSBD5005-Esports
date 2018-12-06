@@ -6,6 +6,12 @@ import { getTournamentAggregate, getTournamentByAggregateTime } from "./api";
 var countries_EU_shortcode = [];
 var data_EU = {};
 
+var default_color = {}
+Object.keys(Countries).map(l => {
+    var d_f = { 'fillKey': 'defaultFill'}
+    default_color[Countries[l]] = d_f;
+});
+
 Object.keys(Countries).map(function(key) {
 	if (countries_EU.indexOf(key) > 0) {
 		countries_EU_shortcode.push(Countries[key]);
@@ -199,8 +205,16 @@ getTournamentByAggregateTime().then(results => {
     d_temporal = results[0].map(getMonthOffset);
 });
 
+function offsetToDate(offset) {
+    var year = Math.floor(offset / 12) + BEGIN_DATE;
+    var month = offset % 12;
+
+    return year + '-' + month;
+}
+
 d3.select('#slider').on('change', function(e) {
     var t_offset = parseInt(document.getElementById("slider").value);
+    document.getElementById("currDate").innerText = offsetToDate(t_offset);
 
     var thistime = d_temporal.filter(row => {
         return row.offset == t_offset;
@@ -209,10 +223,37 @@ d3.select('#slider').on('change', function(e) {
     var bubbles = scaleToMinMax(thistime, "prize");
 
     // console.log(bubbles.length)
+    var values = bubbles.map(x => x.prize);
+    // console.log(values)
+    var d_max = Math.max(...values);
+    var colors = {}
+    bubbles.forEach(bubble => {
+        var country = bubble.centered;
+        var ratio = bubble.prize/d_max;
+        var fillKey = '';
+
+        if(ratio >= 0.95) {
+            fillKey = "g0";
+        } else if(ratio >= 0.85) {
+            fillKey = "g1";
+        } else if(ratio >= 0.7) {
+            fillKey = "g2";
+        } else if(ratio >= 0.55) {
+            fillKey = "g3";
+        } else if(ratio >= 0.4) {
+            fillKey = "g4";
+        } else {
+            fillKey = "g5"
+        }
+        colors[country] = { 'fillKey': fillKey }
+    });
 
     map.bubbles(bubbles, {
         popupTemplate: function(geo, data) {
             return "<div class='hoverinfo'>Total tournament prize for " + data.country + ": " + data.prize + "</div>";
         }
     });
+
+    map.updateChoropleth(default_color);
+    map.updateChoropleth(colors);
 });
