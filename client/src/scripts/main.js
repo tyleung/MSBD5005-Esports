@@ -145,7 +145,7 @@ function scaler(val, min, max, yMax, yMin) {
 }
 
 function fillKeyByGameId(key) {
-  console.log(key);
+  // console.log(key)
   var ret = '';
   switch (key) {
     case 1:
@@ -177,8 +177,6 @@ function scaleToMinMax(data, col, min, max) {
   var d_max = Math.max(...values);
   var d_min = Math.min(...values);
 
-  console.log(data);
-
   return data.reduce((arr, obj) => {
     var centered = getCountryShortKey(obj.country);
     if (centered == null) {
@@ -198,24 +196,16 @@ function scaleToMinMax(data, col, min, max) {
 }
 
 d3.select('#update').on('click', function(e) {
-  var prom = getTournamentAggregate();
+  var m = 1;
+  window.myVar = setInterval(function() {
+    m++;
+    updateByMonth(m);
+    document.getElementById('slider').value = m;
+  }, 2000);
+});
 
-  prom.then(results => {
-    var bubble_data = scaleToMinMax(results, 'sum(`prizePool`)');
-    // console.log(bubble_data)
-
-    map.bubbles(bubble_data, {
-      popupTemplate: function(geo, data) {
-        return (
-          "<div class='hoverinfo'>Total tournament prize for this location " +
-          data.prize +
-          '</div>'
-        );
-      }
-    });
-
-    map.updateChoropleth([]);
-  });
+d3.select('#stop').on('click', function(e) {
+  clearInterval(window.myVar);
 });
 
 var BEGIN_DATE = 2014; // 2015 Jan
@@ -262,6 +252,57 @@ function offsetToDate(offset) {
   var monthName = month_names[month - 1];
 
   return monthName + ' ' + year;
+}
+
+function updateByMonth(val) {
+  document.getElementById('currDate').innerText = offsetToDate(val);
+
+  var thistime = d_temporal.filter(row => {
+    return row.offset == val;
+  });
+
+  var bubbles = scaleToMinMax(thistime, 'prize');
+
+  // console.log(bubbles.length)
+  var values = bubbles.map(x => x.prize);
+  // console.log(values)
+  var d_max = Math.max(...values);
+  var colors = {};
+  bubbles.forEach(bubble => {
+    var country = bubble.centered;
+    var ratio = bubble.prize / d_max;
+    var fillKey = '';
+
+    if (ratio >= 0.95) {
+      fillKey = 'g0';
+    } else if (ratio >= 0.85) {
+      fillKey = 'g1';
+    } else if (ratio >= 0.7) {
+      fillKey = 'g2';
+    } else if (ratio >= 0.55) {
+      fillKey = 'g3';
+    } else if (ratio >= 0.4) {
+      fillKey = 'g4';
+    } else {
+      fillKey = 'g5';
+    }
+    colors[country] = { fillKey: fillKey };
+  });
+
+  map.bubbles(bubbles, {
+    popupTemplate: function(geo, data) {
+      return (
+        "<div class='hoverinfo'>Total tournament prize for " +
+        data.country +
+        ': ' +
+        formatter.format(data.prize) +
+        '</div>'
+      );
+    }
+  });
+
+  map.updateChoropleth(default_color);
+  map.updateChoropleth(colors);
 }
 
 d3.select('#slider').on('change', function(e) {
