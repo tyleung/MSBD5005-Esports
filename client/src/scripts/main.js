@@ -149,9 +149,14 @@ function scaleToMinMax(data, col, min, max) {
 
   // console.log(d_max)
 
-  return data.map(obj => {
-    return {
-      centered: getCountryShortKey(obj.country),
+  return data.reduce((arr, obj) => {
+    var centered = getCountryShortKey(obj.country);
+    if (centered == null) {
+      return arr;
+    }
+
+    var d = {
+      centered: centered,
       country: obj.country,
       radius: scaler(obj[col], min, max, d_max, d_min),
       prize: obj[col],
@@ -159,7 +164,9 @@ function scaleToMinMax(data, col, min, max) {
       // latitude: getCityLat(obj.country),
       // longitude: getCityLon(obj.country)
     };
-  });
+    arr.push(d);
+    return arr;
+  }, []);
 }
 
 d3.select('#update').on('click', function(e) {
