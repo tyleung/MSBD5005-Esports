@@ -205,11 +205,13 @@ d3.select('#update').on('click', function(e) {
 });
 
 d3.select('#year').on('click', function(e) {
-  var m = 1;
+  var m = 0;
   window.myVar = setInterval(function() {
     m++
     updateByYear(m);
-    document.getElementById('slider').value = m;
+    // document.getElementById('slider').value = m;
+    var year = 2013+m;
+    document.getElementById('currDate').innerText = year + '';
   }, 4000)
 });
 
