@@ -1,11 +1,10 @@
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "ELEAGUE Cup 2018: Rocket League", "2018-11-30", "2018-12-02", "Atlanta", "United States", "", 150000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 6 - Finals", "2018-11-09", "2018-11-11", "Las Vegas", "United States", "", 500000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 6 - Europe", "2018-09-09", "2018-10-14", "Online", "Europe", "", 214250);
-INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 6 - North America", "2018-09-08", "2018-10-13", "Online", "North America", "", 214250);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 5 - Finals", "2018-06-08", "2018-06-10", "London", "England", "", 250000);
-INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 5 - Europe", "2018-03-18", "2018-04-22", "Online", "Europe", "", 109000);
+INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 6 - North America", "2018-09-08", "2018-10-13", "Online", "North America", "", 214250);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 5 - North America", "2018-03-17", "2018-04-21", "Online", "North America", "", 109000);
-INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "ELEAGUE Cup 2017: Rocket League", "2017-12-01", "2017-12-03", "Atlanta", "United States", "", 150000);
+INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 5 - Europe", "2018-03-18", "2018-04-22", "Online", "Europe", "", 109000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 4 - Finals", "2017-11-10", "2017-11-12", "Washington D.C.", "Us", "", 150000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 4 - Europe", "2017-09-10", "2017-10-15", "Online", "Europe", "", 83000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 4 - North America", "2017-09-09", "2017-10-14", "Online", "North America", "", 83000);
@@ -16,6 +15,7 @@ INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, 
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 2 - Europe", "2016-09-25", "2016-11-13", "Online", "Europe", "", 53000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 2 - North America", "2016-09-24", "2016-11-12", "Online", "North America", "", 53000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 1 - Finals", "2016-08-06", "2016-08-07", "Los Angeles", "United States", "", 55000);
+INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "ELEAGUE Cup 2017: Rocket League", "2017-12-01", "2017-12-03", "Atlanta", "United States", "", 150000);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "Gfinity Australia Elite Series - Season 2", "2018-11-04", "2018-12-16", "Sydney", "Australia", "", 30337.77);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "Gfinity United Kingdom Elite Series - Season 4", "2018-10-27", "2018-12-09", "London", "England", "", 65926.95);
 INSERT INTO Tournament(gameId, name, startDate, endDate, city, country, region, prizePool) VALUES (4, "RLCS Season 6 - Europe: Promotion Playoffs", "2018-11-18", "2018-11-18", "Online", "Europe", "", 0);

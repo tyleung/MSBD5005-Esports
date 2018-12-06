@@ -178,16 +178,22 @@ function scaleToMinMax(data, col, min, max) {
 
   console.log(data)
 
-  return data.map(obj => {
-    // console.log(fillKeyByGameId(obj.gameId))
-    return {
-      centered: getCountryShortKey(obj.country),
+  return data.reduce((arr, obj) => {
+    var centered = getCountryShortKey(obj.country);
+    if (centered == null) {
+      return arr;
+    }
+
+    var d = {
+      centered: centered,
       country: obj.country,
       radius: scaler(obj[col], min, max, d_max, d_min),
       prize: obj[col],
       fillKey: fillKeyByGameId(obj.gameId)
     };
-  });
+    arr.push(d);
+    return arr;
+  }, []);
 }
 
 d3.select('#update').on('click', function(e) {
