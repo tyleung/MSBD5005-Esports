@@ -177,6 +177,7 @@ export const Countries = {
     "United Arab Emirates":"ARE",
     "United Republic of Tanzania":"TZA",
     "United States":"USA",
+    "usa": "USA",
     "us": "USA",
     "Uruguay":"URY",
     "Uzbekistan":"UZB",
