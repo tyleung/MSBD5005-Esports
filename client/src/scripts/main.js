@@ -52,11 +52,15 @@ var map = new Datamap({
   height: 600,
   fills: {
     defaultFill: '#c2bdc5',
-    alpha25: 'rgba(0, 0, 255, 0.25)',
-    alpha50: 'rgba(0, 0, 255, 0.50)',
-    alpha65: 'rgba(0, 0, 255, 0.65)',
-    highest: 'rgba(127, 39, 4, 1)',
-    alpha100: 'blue',
+    // alpha25: 'rgba(0, 0, 255, 0.25)',
+    // alpha50: 'rgba(0, 0, 255, 0.50)',
+    // alpha65: 'rgba(0, 0, 255, 0.65)',
+    // highest: 'rgba(127, 39, 4, 1)',
+    dota: '#ff0000',
+    csgo: '#b3b300',
+    overwatch: '#000000',
+    rocketleague: '#3366ff',
+    lol: '#00cc66',
     g0: 'rgb(127,39,4)',
     g1: 'rgb(166,54,3)',
     g2: 'rgb(217,72,1)',
@@ -68,6 +72,18 @@ var map = new Datamap({
 
   data: data_EU
 });
+
+map.legend({
+    defaultFillName: "No data",
+    labels: {
+      dota: 'Dota 2',
+      csgo: 'Counter Strike',
+    overwatch: 'Overwatch',
+    rocketleague: 'Rocket League',
+    lol: 'League of Legends',
+      g0: "Highest",
+      g6: "Lowest"}
+    });
 
 //sample of the arc plugin
 // map.arc([
@@ -118,18 +134,6 @@ var data = {
   MAD: { fillKey: 'gt50' }
 };
 
-/**
- * {
-    name: 'Not a bomb, but centered on Brazil',
-    radius: 23,
-    centered: 'BRA',
-    country: 'USA',
-    yeild: 0,
-    fillKey: 'USA',
-    date: '1954-03-01'
-  },
- */
-
 function getCountryShortKey(value) {
   return Countries[value];
 }
@@ -137,6 +141,31 @@ function getCountryShortKey(value) {
 function scaler(val, min, max, yMax, yMin) {
   var percent = (val - yMin) / (yMax - yMin);
   return percent * (max - min) + min;
+}
+
+function fillKeyByGameId(key) {
+  console.log(key)
+  var ret = ''
+  switch(key) {
+    case 1:
+      ret = 'dota';
+      break;
+    case 2:
+      ret = 'csgo';
+      break;
+    case 3:
+      ret = 'overwatch';
+      break;
+    case 4:
+      ret = 'rocketleague';
+      break;
+    case 5:
+      ret = 'lol';
+      break;
+    default:
+      break;
+  }
+  return ret;
 }
 
 function scaleToMinMax(data, col, min, max) {
@@ -147,17 +176,16 @@ function scaleToMinMax(data, col, min, max) {
   var d_max = Math.max(...values);
   var d_min = Math.min(...values);
 
-  // console.log(d_max)
+  console.log(data)
 
   return data.map(obj => {
+    // console.log(fillKeyByGameId(obj.gameId))
     return {
       centered: getCountryShortKey(obj.country),
       country: obj.country,
       radius: scaler(obj[col], min, max, d_max, d_min),
       prize: obj[col],
-      fillKey: 'alpha65'
-      // latitude: getCityLat(obj.country),
-      // longitude: getCityLon(obj.country)
+      fillKey: fillKeyByGameId(obj.gameId)
     };
   });
 }
@@ -195,6 +223,7 @@ function getMonthOffset(row) {
   return {
     country: row.country,
     prize: row.prize,
+    gameId: row.gameId,
     offset
   };
 }
@@ -203,6 +232,7 @@ var d_temporal = [];
 getTournamentByAggregateTime().then(results => {
   // country, year, month, prize
   d_temporal = results[0].map(getMonthOffset);
+  // console.log(results);
 });
 
 function offsetToDate(offset) {
