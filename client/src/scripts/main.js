@@ -1,7 +1,7 @@
 import { Countries, countries_EU } from './countries';
 import * as Datamap from 'datamaps';
 import { formatter } from './utils';
-import { getTournamentAggregate, getTournamentByAggregateTime } from './api';
+import { getTournamentAggregate, getTournamentByAggregateTime, getTournamentByAggregateYear } from './api';
 
 //basic map config with custom fills, mercator projection
 var countries_EU_shortcode = [];
@@ -205,6 +205,15 @@ d3.select('#update').on('click', function(e) {
   }, 2000)
 });
 
+d3.select('#year').on('click', function(e) {
+  var m = 1;
+  window.myVar = setInterval(function() {
+    m++
+    updateByYear(m);
+    document.getElementById('slider').value = m;
+  }, 4000)
+});
+
 d3.select('#stop').on('click', function(e) {
   clearInterval(window.myVar);
 })
@@ -226,6 +235,22 @@ function getMonthOffset(row) {
   };
 }
 
+function getYearOffset(row) {
+  if (row.year < 2013) {
+    var offset = 0;
+  } else {
+    var offset = row.year - 2013;
+  }
+
+  return {
+    country: row.country,
+    prize: row.prize,
+    gameId: row.gameId,
+    offset
+  };
+}
+
+var y_temp = [];
 var d_temporal = [];
 getTournamentByAggregateTime().then(results => {
   // country, year, month, prize
@@ -233,11 +258,67 @@ getTournamentByAggregateTime().then(results => {
   // console.log(results);
 });
 
+getTournamentByAggregateYear().then(results => {
+  // country, year, prize
+  y_temp = results[0].map(getYearOffset);
+});
+
 function offsetToDate(offset) {
   var year = Math.floor(offset / 12) + BEGIN_DATE;
   var month = offset % 12;
 
   return year + '-' + month;
+}
+
+function updateByYear(val) {
+  // document.getElementById('currDate').innerText = offsetToDate(val);
+
+  var thistime = y_temp.filter(row => {
+    return row.offset == val;
+  });
+
+  var bubbles = scaleToMinMax(thistime, 'prize');
+
+  // console.log(bubbles.length)
+  var values = bubbles.map(x => x.prize);
+  // console.log(values)
+  var d_max = Math.max(...values);
+  var colors = {};
+  bubbles.forEach(bubble => {
+    var country = bubble.centered;
+    var ratio = bubble.prize / d_max;
+    var fillKey = '';
+
+    if (ratio >= 0.95) {
+      fillKey = 'g0';
+    } else if (ratio >= 0.85) {
+      fillKey = 'g1';
+    } else if (ratio >= 0.7) {
+      fillKey = 'g2';
+    } else if (ratio >= 0.55) {
+      fillKey = 'g3';
+    } else if (ratio >= 0.4) {
+      fillKey = 'g4';
+    } else {
+      fillKey = 'g5';
+    }
+    colors[country] = { fillKey: fillKey };
+  });
+
+  map.bubbles(bubbles, {
+    popupTemplate: function(geo, data) {
+      return (
+        "<div class='hoverinfo'>Total tournament prize for " +
+        data.country +
+        ': ' +
+        formatter.format(data.prize) +
+        '</div>'
+      );
+    }
+  });
+
+  map.updateChoropleth(default_color);
+  map.updateChoropleth(colors);
 }
 
 function updateByMonth(val) {

@@ -47,8 +47,18 @@ function getTournamentByAggregateTime() {
     });
 }
 
+function getTournamentByAggregateYear() {
+    return axios.get(apiUrl + '/tournaments_agg_year').then(response => {
+        // console.log(response.data);
+        return response.data
+    }).catch(error => {
+        console.log(error)
+    });
+}
+
 export {
     testApiCall,
     getTournamentAggregate,
-    getTournamentByAggregateTime
+    getTournamentByAggregateTime,
+    getTournamentByAggregateYear
 };
