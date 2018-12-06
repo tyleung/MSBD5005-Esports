@@ -1,7 +1,8 @@
-$body-color: blue;
+$body-color: black;
 
 body {
   color: $body-color;
+  font-family: 'Helvetica';
 }
 
 #slider {
@@ -10,4 +11,12 @@ body {
 
 .datamaps-legend {
   margin-top: -40px;
+}
+
+.title {
+  text-align: center;
+}
+
+.visContainer {
+  width: 95%;
 }

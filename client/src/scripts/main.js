@@ -74,16 +74,17 @@ var map = new Datamap({
 });
 
 map.legend({
-    defaultFillName: "No data",
-    labels: {
-      dota: 'Dota 2',
-      csgo: 'Counter Strike',
+  defaultFillName: 'No data',
+  labels: {
+    dota: 'Dota 2',
+    csgo: 'Counter Strike',
     overwatch: 'Overwatch',
     rocketleague: 'Rocket League',
     lol: 'League of Legends',
-      g0: "Highest",
-      g6: "Lowest"}
-    });
+    g0: 'Highest',
+    g6: 'Lowest'
+  }
+});
 
 //sample of the arc plugin
 // map.arc([
@@ -144,9 +145,9 @@ function scaler(val, min, max, yMax, yMin) {
 }
 
 function fillKeyByGameId(key) {
-  console.log(key)
-  var ret = ''
-  switch(key) {
+  console.log(key);
+  var ret = '';
+  switch (key) {
     case 1:
       ret = 'dota';
       break;
@@ -176,7 +177,7 @@ function scaleToMinMax(data, col, min, max) {
   var d_max = Math.max(...values);
   var d_min = Math.min(...values);
 
-  console.log(data)
+  console.log(data);
 
   return data.reduce((arr, obj) => {
     var centered = getCountryShortKey(obj.country);
@@ -241,11 +242,26 @@ getTournamentByAggregateTime().then(results => {
   // console.log(results);
 });
 
+var month_names = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 function offsetToDate(offset) {
   var year = Math.floor(offset / 12) + BEGIN_DATE;
   var month = offset % 12;
+  var monthName = month_names[month - 1];
 
-  return year + '-' + month;
+  return monthName + ' ' + year;
 }
 
 d3.select('#slider').on('change', function(e) {
