@@ -233,6 +233,7 @@ getTournamentByAggregateTime().then(results => {
 });
 
 var month_names = [
+  'December',
   'January',
   'February',
   'March',
@@ -243,13 +244,12 @@ var month_names = [
   'August',
   'September',
   'October',
-  'November',
-  'December'
+  'November'
 ];
 function offsetToDate(offset) {
   var year = Math.floor(offset / 12) + BEGIN_DATE;
   var month = offset % 12;
-  var monthName = month_names[month - 1];
+  var monthName = month_names[month];
 
   return monthName + ' ' + year;
 }
